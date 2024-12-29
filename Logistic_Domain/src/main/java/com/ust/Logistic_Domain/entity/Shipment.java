@@ -1,6 +1,5 @@
 package com.ust.Logistic_Domain.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -8,167 +7,124 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
-import java.util.UUID;
 import java.util.Date;
-@Entity
-@Table(name="shipment")
+import java.util.UUID;
 
-@Data
+@Entity
+@Table(name = "shipment")
+//@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Shipment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;  // Unique shipment identifier
-
-    @NotNull(message = "Tracking number cannot be null")
-    @NotBlank(message = "Tracking number cannot be blank")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private  Long id;
+//    @NotBlank(message = "Tracking number cannot be blank")
+//    @Size(max = 100, message = "Tracking number cannot be longer than 100 characters")
     private String trackingNumber;  // Unique tracking number
 
-    @NotNull(message = "Sender name cannot be null")
     @NotBlank(message = "Sender name cannot be blank")
     @Size(max = 100, message = "Sender name cannot be longer than 100 characters")
     @JsonProperty("senderName")
-    private String senderName;  // Sender's name
+    private String senderName;
 
-    @NotNull(message = "Sender address cannot be null")
     @NotBlank(message = "Sender address cannot be blank")
     @Size(max = 255, message = "Sender address cannot be longer than 255 characters")
     @JsonProperty("senderAddress")
-    private String senderAddress;  // Sender's address
+    private String senderAddress;
 
-    @NotNull(message = "Sender city cannot be null")
     @NotBlank(message = "Sender city cannot be blank")
     @Size(max = 100, message = "Sender city cannot be longer than 100 characters")
     @JsonProperty("senderCity")
-    private String senderCity;  // Sender's city
+    private String senderCity;
 
-    @NotNull(message = "Sender state cannot be null")
     @NotBlank(message = "Sender state cannot be blank")
     @Size(max = 100, message = "Sender state cannot be longer than 100 characters")
     @JsonProperty("senderState")
-    private String senderState;  // Sender's state
+    private String senderState;
 
-    @NotNull(message = "Sender ZIP code cannot be null")
     @NotBlank(message = "Sender ZIP code cannot be blank")
     @Size(max = 20, message = "Sender ZIP code cannot be longer than 20 characters")
     @JsonProperty("senderZipCode")
-    private String senderZipCode;  // Sender's ZIP code
+    private String senderZipCode;
 
-    @NotNull(message = "Sender country cannot be null")
     @NotBlank(message = "Sender country cannot be blank")
     @Size(max = 100, message = "Sender country cannot be longer than 100 characters")
     @JsonProperty("senderCountry")
-    private String senderCountry;  // Sender's country
+    private String senderCountry;
 
-    @NotNull(message = "Receiver name cannot be null")
     @NotBlank(message = "Receiver name cannot be blank")
     @Size(max = 100, message = "Receiver name cannot be longer than 100 characters")
     @JsonProperty("receiverName")
-    private String receiverName;  // Receiver's name
+    private String receiverName;
 
-    @NotNull(message = "Receiver address cannot be null")
     @NotBlank(message = "Receiver address cannot be blank")
     @Size(max = 255, message = "Receiver address cannot be longer than 255 characters")
     @JsonProperty("receiverAddress")
-    private String receiverAddress;  // Receiver's address
+    private String receiverAddress;
 
+    @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Invalid mobile number format")
     @JsonProperty("mobileNumber")
-     private String mobileNumber;
+    private String mobileNumber;
 
-    @NotNull(message = "Receiver city cannot be null")
     @NotBlank(message = "Receiver city cannot be blank")
     @Size(max = 100, message = "Receiver city cannot be longer than 100 characters")
     @JsonProperty("receiverCity")
-    private String receiverCity;  // Receiver's city
+    private String receiverCity;
 
-    @NotNull(message = "Receiver state cannot be null")
     @NotBlank(message = "Receiver state cannot be blank")
     @Size(max = 100, message = "Receiver state cannot be longer than 100 characters")
     @JsonProperty("receiverState")
-    private String receiverState;  // Receiver's state
+    private String receiverState;
 
-    @NotNull(message = "Receiver ZIP code cannot be null")
     @NotBlank(message = "Receiver ZIP code cannot be blank")
     @Size(max = 20, message = "Receiver ZIP code cannot be longer than 20 characters")
     @JsonProperty("receiverZipCode")
-    private String receiverZipCode;  // Receiver's ZIP code
+    private String receiverZipCode;
 
-    @NotNull(message = "Receiver country cannot be null")
     @NotBlank(message = "Receiver country cannot be blank")
     @Size(max = 100, message = "Receiver country cannot be longer than 100 characters")
     @JsonProperty("receiverCountry")
-    private String receiverCountry;  // Receiver's country
+    private String receiverCountry;
 
     @NotNull(message = "Estimated delivery date cannot be null")
     @FutureOrPresent(message = "Estimated delivery date must be in the future or present")
     @JsonProperty("estimatedDeliveryDate")
-    private Date estimatedDeliveryDate;  // Estimated delivery date
+    private Date estimatedDeliveryDate;
 
-    @NotNull(message = "Status cannot be null")
     @NotBlank(message = "Status cannot be blank")
     @Size(max = 50, message = "Status cannot be longer than 50 characters")
     @JsonProperty("status")
-    private String status;  // Shipment status (e.g., "In Transit", "Delivered", "Pending")
+    private String status;
 
     @NotNull(message = "Weight cannot be null")
     @DecimalMin(value = "0.1", message = "Weight must be greater than 0")
     @JsonProperty("weight")
-    private Double weight;  // Weight of the shipment in kg
+    private Double weight;
 
-    @NotNull(message = "Shipment type cannot be null")
     @NotBlank(message = "Shipment type cannot be blank")
     @Size(max = 50, message = "Shipment type cannot be longer than 50 characters")
     @JsonProperty("shipmentType")
-    private String shipmentType;  // Type of shipment (e.g., "Standard", "Express", "Overnight")
+    private String shipmentType;
 
-    @NotNull(message = "Carrier cannot be null")
     @NotBlank(message = "Carrier cannot be blank")
     @Size(max = 50, message = "Carrier cannot be longer than 50 characters")
     @JsonProperty("carrier")
-    private String carrier;  // Carrier name (e.g., "UPS", "FedEx")
+    private String carrier;
 
     @NotNull(message = "Is fragile field cannot be null")
     @JsonProperty("isFragile")
-    private Boolean isFragile;  // Indicates if the shipment is fragile
+    private Boolean isFragile;
 
     @NotNull(message = "Creation date cannot be null")
     @JsonProperty("createdAt")
-    private LocalDateTime createdAt;  // Date when the shipment was created
-
-    public Shipment() {
-    }
+    private LocalDateTime createdAt;
 
     @NotNull(message = "Update date cannot be null")
     @JsonProperty("updatedAt")
-    private LocalDateTime updatedAt;  // Date when the shipment was last updated
+    private LocalDateTime updatedAt;
 
-    public Shipment(Long id, String trackingNumber, String senderName, String senderAddress, String senderCity, String senderState, String senderZipCode, String senderCountry, String receiverName, String receiverAddress, String mobileNumber, String receiverCity, String receiverState, String receiverZipCode, String receiverCountry, Date estimatedDeliveryDate, String status, Double weight, String shipmentType, String carrier, Boolean isFragile, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.trackingNumber = trackingNumber;
-        this.senderName = senderName;
-        this.senderAddress = senderAddress;
-        this.senderCity = senderCity;
-        this.senderState = senderState;
-        this.senderZipCode = senderZipCode;
-        this.senderCountry = senderCountry;
-        this.receiverName = receiverName;
-        this.receiverAddress = receiverAddress;
-        this.mobileNumber = mobileNumber;
-        this.receiverCity = receiverCity;
-        this.receiverState = receiverState;
-        this.receiverZipCode = receiverZipCode;
-        this.receiverCountry = receiverCountry;
-        this.estimatedDeliveryDate = estimatedDeliveryDate;
-        this.status = status;
-        this.weight = weight;
-        this.shipmentType = shipmentType;
-        this.carrier = carrier;
-        this.isFragile = isFragile;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
 
     @PrePersist
     private void onCreate() {
@@ -176,14 +132,6 @@ public class Shipment {
         this.trackingNumber = UUID.randomUUID().toString();
         this.createdAt = LocalDateTime.now();
         this.updatedAt = this.createdAt;  // Set both times to now initially
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
     }
 
     @PreUpdate
@@ -269,6 +217,14 @@ public class Shipment {
 
     public void setReceiverAddress(String receiverAddress) {
         this.receiverAddress = receiverAddress;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     public String getReceiverCity() {

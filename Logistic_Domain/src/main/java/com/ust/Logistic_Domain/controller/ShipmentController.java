@@ -35,7 +35,7 @@ public class ShipmentController {
     private ShipmentRepository shipmentRepository;
 
     @PostMapping("/addShipment")
-    public ResponseEntity<Shipment> createShipment( @RequestBody Shipment shipment) {
+    public ResponseEntity<Shipment> createShipment( @Valid @RequestBody Shipment shipment) {
         return ResponseEntity.ok(shipmentService.addShipment(shipment));
     }
 
