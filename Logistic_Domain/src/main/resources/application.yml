@@ -1,6 +1,0 @@
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/  # URL for the Eureka server
-    registerWithEureka: true  # The client will register with Eureka
-    fetchRegistry: true  # The client will fetch the registry from Eureka
